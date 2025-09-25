@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>पूजा कमेटी ऐप - डाउनलोड</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Nirmala UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --accent: #f59e0b;
+            --text: #1f2937;
+            --background: #f9fafb;
+            --white: #ffffff;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .hindi {
+            font-family: 'Nirmala UI', 'Segoe UI', sans-serif;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .custom-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            object-fit: contain;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        /* Slider Styles */
+        .slider-container {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .slide-content {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 80%;
+        }
+        
+        .slide-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .slider-nav {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+        
+        /* Download Section */
+        .download-section {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .download-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .download-section p {
+            color: #6b7280;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .download-btn i {
+            font-size: 1.5rem;
+        }
+        
+        .file-info {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            margin-bottom: 20px;
+        }
+        
+        /* Share Button Styles */
+        .share-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .share-text {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .whatsapp { background: #25D366; }
+        .message { background: #0088cc; }
+        .instagram { background: #E4405F; }
+        .facebook { background: #1877F2; }
+        .telegram { background: #0088cc; }
+        .share { background: var(--accent); }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .feature i {
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* Share Modal */
+        .share-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .share-link {
+            background: #f3f4f6;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            word-break: break-all;
+            font-size: 0.9rem;
+        }
+        
+        .close-modal {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .slider-container {
+                height: 200px;
+            }
+            
+            .download-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .share-buttons {
+                gap: 8px;
+            }
+            
+            .share-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <div class="header">
+            <div class="logo-container">
+                <img id="customLogo" src="banner.png" alt=" DHUMNAGAR PUJA SAMITI" class="custom-logo">
+                <div class="logo-text hindi">धूमनगर पूजा समिति ऐप</div>
+            </div>
+            <p class="hindi">पूजा, चंदा और आयोजन की सभी जानकारी अब आपके मोबाइल पर – सरल, तेज़ और सुरक्षित!</p>
+        </div>
+        
+        <div class="slider-container">
+            <div class="slider" id="slider">
+                <div class="slide" style="background-image: url('banner5.jpg');">
+                    
+                </div>
+                <div class="slide" style="background-image: url('banner3.png');">
+                    
+                </div>
+                <div class="slide" style="background-image: url('banner2.png');">
+                    
+                </div>
+            </div>
+            <div class="slider-nav" id="sliderNav">
+                <div class="nav-dot active" data-slide="0"></div>
+                <div class="nav-dot" data-slide="1"></div>
+                <div class="nav-dot" data-slide="2"></div>
+            </div>
+        </div>
+        
+        <div class="download-section">
+            <h2 class="hindi">ऐप डाउनलोड करें</h2>
+            <p class="hindi">अपने Android डिवाइस के लिए पूजा कमेटी ऐप डाउनलोड करें</p>
+            
+            <a href="https://drive.google.com/uc?export=download&id=1aELTqq5DsMfYKf9RJGMkQfBknuBcaHMH" class="download-btn">
+                <i class="fas fa-download"></i>
+                <span class="hindi">APK डाउनलोड करें</span>
+            </a>
+            
+            <div class="file-info">फाइल आकार: 7.5 MB • संस्करण: 1.0</div>
+            
+            <!-- Share Section -->
+            <div class="share-section">
+                <div class="share-text hindi">ऐप को शेयर करें</div>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn whatsapp" id="whatsapp-share">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="share-btn message" id="message-share">
+                        <i class="fas fa-sms"></i>
+                    </a>
+                    <a href="#" class="share-btn instagram" id="instagram-share">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="share-btn facebook" id="facebook-share">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="share-btn telegram" id="telegram-share">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#" class="share-btn share" id="more-share">
+                        <i class="fas fa-share-alt"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span class="hindi">कोई इंस्टॉलेशन फीस नहीं</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span class="hindi">सीधा डाउनलोड</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span class="hindi">100% सुरक्षित</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span class="hindi">आसान इंस्टॉलेशन</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Share Modal -->
+    <div class="share-modal" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-title hindi">ऐप शेयर करें</div>
+            <p class="hindi">निम्न लिंक को कॉपी करके शेयर करें:</p>
+            <div class="share-link" id="shareLink">https://example.com/pooja-app</div>
+            <button class="close-modal" id="closeModal">बंद करें</button>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p class="hindi">© 2025 धूमनगर पूजा समिति ऐप. सर्वाधिकार सुरक्षित</p>
+    </div>
+
+    <script>
+        // Image Slider Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('slider');
+            const dots = document.querySelectorAll('.nav-dot');
+            let currentSlide = 0;
+            const totalSlides = document.querySelectorAll('.slide').length;
+            
+            // Function to show specific slide
+            function showSlide(index) {
+                if (index < 0) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
+                
+                slider.style.transform = `translateX(-${index * 100}%)`;
+                
+                // Update active dot
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[index].classList.add('active');
+                
+                currentSlide = index;
+            }
+            
+            // Auto slide change
+            setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 4000);
+            
+            // Dot click events
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    showSlide(slideIndex);
+                });
+            });
+            
+            // Share functionality
+            const shareModal = document.getElementById('shareModal');
+            const shareLink = document.getElementById('shareLink');
+            const closeModal = document.getElementById('closeModal');
+            
+            // Current page URL for sharing
+            const currentUrl = window.location.href;
+            shareLink.textContent = currentUrl;
+            
+            // Share message
+            const shareMessage = "धूमनगर पूजा समिति ऐप डाउनलोड करें: " + currentUrl;
+            
+            // WhatsApp Share
+            document.getElementById('whatsapp-share').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open('https://wa.me/?text=' + encodeURIComponent(shareMessage), '_blank');
+            });
+            
+            // SMS Share
+            document.getElementById('message-share').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    window.open('sms:?body=' + encodeURIComponent(shareMessage), '_blank');
+                } else {
+                    openShareModal();
+                }
+            });
+            
+            // Instagram Share (opens in new tab as direct sharing not supported)
+            document.getElementById('instagram-share').addEventListener('click', function(e) {
+                e.preventDefault();
+                openShareModal();
+            });
+            
+            // Facebook Share
+            document.getElementById('facebook-share').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(currentUrl), '_blank');
+            });
+            
+            // Telegram Share
+            document.getElementById('telegram-share').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open('https://t.me/share/url?url=' + encodeURIComponent(currentUrl) + '&text=' + encodeURIComponent("धूमनगर पूजा समिति ऐप"), '_blank');
+            });
+            
+            // More Share Options (Native Share API or modal)
+            document.getElementById('more-share').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if native share API is available
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'धूमनगर पूजा समिति ऐप',
+                        text: 'धूमनगर पूजा समिति ऐप डाउनलोड करें',
+                        url: currentUrl,
+                    })
+                    .then(() => console.log('शेयर सफल'))
+                    .catch((error) => console.log('शेयर में त्रुटि', error));
+                } else {
+                    // Fallback to modal
+                    openShareModal();
+                }
+            });
+            
+            // Open share modal
+            function openShareModal() {
+                shareModal.style.display = 'flex';
+            }
+            
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                shareModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === shareModal) {
+                    shareModal.style.display = 'none';
+                }
+            });
+            
+            // Download button click event
+            const downloadBtn = document.querySelector('.download-btn');
+            downloadBtn.addEventListener('click', function() {
+                console.log('Download initiated');
+            });
+        });
+    </script>
+</body>
+</html>
